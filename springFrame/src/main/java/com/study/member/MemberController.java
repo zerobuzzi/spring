@@ -99,9 +99,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("/email-check")
-	public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail) {
+	public @ResponseBody int emailCheck(@RequestParam("memberEmail") String memberEmail) {
 		System.out.println("memberEmail = " + memberEmail);
-		String checkResult = memberService.emailCheck(memberEmail);
+		int checkResult = memberService.emailCheck(memberEmail);
 		
 		System.out.println(checkResult);
 		return checkResult;

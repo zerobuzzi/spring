@@ -52,13 +52,13 @@ public class MemberService {
 		}
 	}
 
-	public String emailCheck(String memberEmail) {
+	public int emailCheck(String memberEmail) {
 			MemberDTO memberDTO = memberRepository.findByEmail(memberEmail);
 			System.out.println("뭐임 = " + memberDTO);
 			if(memberDTO == null) {
-				return "ok";
+				return 0;
 			}else {
-				return "no";
+				return 1;
 			}
 	}
 
