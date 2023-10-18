@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+    <insert id="save" parameterType="board">
+        insert into board_table(boardWriter, boardPass, boardTitle, boardContents)
+        values(#{boardWriter}, #{boardPass}, #{boardTitle}, #{boardContents})
+    </insert>
+    
+    <select id="findAll" resultType="board">
+        select * from board_table order by id desc
+    </select>
+    
+    	<!-- 상세보기 -->
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from board_table where id=#{id}
+    </select>
+    	<!-- 조회수 증가 -->
+    <update id="updateHits" parameterType="Long">
+        update board_table set boardHits = boardHits + 1 where id=#{id}
+    </update>
+    	
+    	<!-- 삭제 -->
+    <delete id="delete" parameterType="Long">
+        delete from board_table where id=#{id}
+    </delete>
+    
+    	<!-- 수정 -->
+    <update id="update" parameterType="board">
+        update board_table set boardTitle=#{boardTitle}, boardContents=#{boardContents}
+        where id=#{id}
+    </update>
+    
+    	<!-- 아이디 기준 내림차순 -->
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
+        select * from board_table order by id desc limit #{start}, #{limit}
+    </select>
+    
+    	<!-- 총 수 -->
+    <select id="boardCount" resultType="Integer">
+        select count(id) from board_table
+    </select>
+    
+    <select id="list" parameterType="Cri" resultType="java.util.HashMap">
+   		 select * from board_table
+		    <choose>
+		        <when test="searchType == 1">
+		            
+		            WHERE boardWriter like CONCAT('%', #{searchName}, '%')
+		            ORDER BY id DESC
+		            LIMIT #{pageStart}, #{perPageNum}
+		        </when>
+		        <when test="searchType == 2">
+		            WHERE boardTitle like CONCAT('%', #{searchName}, '%')
+		            ORDER BY id DESC
+		            LIMIT #{pageStart}, #{perPageNum}
+		        </when>
+		        <otherwise>
+		            ORDER BY id DESC
+		            LIMIT #{pageStart}, #{perPageNum}
+		        </otherwise>
+		    </choose>
+</select>
+    
+    <select id="listCount" resultType="int" parameterType="HashMap">
+    	select count(id) from board_table
+    	
+    	<choose>
+    		<when test="searchType == 1">
+    			 WHERE boardWriter like CONCAT('%', #{searchName}, '%')
+    		</when>
+    		
+    		<when test="searchType == 2">
+    			WHERE boardTitle like CONCAT('%', #{searchName}, '%')
+    		</when>
+    		<otherwise>
+    		order by id desc
+    	</otherwise>
+    	</choose>
+    </select>
+</mapper>

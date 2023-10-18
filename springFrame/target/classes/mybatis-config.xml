@@ -4,5 +4,8 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.study.member.MemberDTO" alias="member"></typeAlias>
+        <typeAlias type="com.study.board.BoardDTO" alias="board"></typeAlias>
+        <typeAlias type="com.study.board.SearchDTO" alias="Search"></typeAlias>
+        <typeAlias type="com.study.board.Criteria" alias="Cri"></typeAlias>
     </typeAliases>
 </configuration>
