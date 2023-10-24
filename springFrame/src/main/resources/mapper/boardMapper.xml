@@ -46,7 +46,6 @@
    		 select * from board_table
 		    <choose>
 		        <when test="searchType == 1">
-		            
 		            WHERE boardWriter like CONCAT('%', #{searchName}, '%')
 		            ORDER BY id DESC
 		            LIMIT #{pageStart}, #{perPageNum}
@@ -65,7 +64,6 @@
     
     <select id="listCount" resultType="int" parameterType="HashMap">
     	select count(id) from board_table
-    	
     	<choose>
     		<when test="searchType == 1">
     			 WHERE boardWriter like CONCAT('%', #{searchName}, '%')

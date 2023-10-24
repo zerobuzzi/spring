@@ -20,6 +20,9 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
+	@Autowired
+	CommentService commentService;
+	
 	@GetMapping("/index")
 	public String index() {
 		
@@ -63,15 +66,19 @@ public class BoardController {
 			 @RequestParam(value= "page", required=false, defaultValue="1") int page) {
 		
 		// 조회수 증가
-		
-		//여기에서는 파라미터도 안받음, 그리고 모델에서도 안내려줌 ㅇㅋ? ㅇㅇ 페이 지값만 받아오나 지금 그
 		boardService.updateHits(id);
-		
+		// 전체리스트
 		BoardDTO boardDTO = boardService.findById(id);
+		
+		//댓글 리스트
+		List<CommentDTO> commnetList = commentService.findAll(id);
+		
+		
 		model.addAttribute("board", boardDTO);
 		model.addAttribute("searchType", cri.getSearchType());
 		model.addAttribute("searchName", cri.getSearchName());
 		model.addAttribute("page", page);
+		model.addAttribute("commentList", commnetList);
 		return "/board/detail";
 	}
 	
@@ -150,9 +157,4 @@ public class BoardController {
 		
 		return "/board/list";
 	}
-	
-	
-	
-	
-	
 }

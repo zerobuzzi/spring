@@ -10,7 +10,7 @@
     <table>
         <tr>
             <th>id</th>
-            <td>${board.id}|||${page}${searchType }${searchName }</td>
+            <td>${board.id}${page}${searchType }${searchName }</td>
         </tr>
         <tr>
             <th>writer</th>
@@ -106,6 +106,7 @@
                     output += "<td>"+commentList[i].commentWriter+"</td>";
                     output += "<td>"+commentList[i].commentContents+"</td>";
                     output += "<td>"+commentList[i].commentCreatedTime+"</td>";
+                    
                     output += "</tr>";
                 }
                 output += "</table>";
