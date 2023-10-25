@@ -46,6 +46,7 @@
     <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
 </div>
 
+
 <div id="comment-list">
     <table>
         <tr>
@@ -105,7 +106,14 @@
                     output += "<td>"+commentList[i].id+"</td>";
                     output += "<td>"+commentList[i].commentWriter+"</td>";
                     output += "<td>"+commentList[i].commentContents+"</td>";
-                    output += "<td>"+commentList[i].commentCreatedTime+"</td>";
+                    
+                    // Date 객체를 생성하고 날짜를 지정된 형식으로 포맷
+                    var createdTime = new Date(commentList[i].commentCreatedTime);
+                    var options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    var formattedTime = createdTime.toLocaleString(options); // 형식을 원하는대로 조정 가능
+                    
+                    output += "<td>" + formattedTime + "</td>";
+                 // output += "<td>"+commentList[i].commentCreatedTime+"</td>";
                     
                     output += "</tr>";
                 }
@@ -121,3 +129,5 @@
     }
 </script>
 </html>
+
+
